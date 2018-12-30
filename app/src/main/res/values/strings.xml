@@ -1,3 +1,12 @@
 <resources>
-	<string name="app_name">HomeExercise2</string>
+	<!-- Main -->
+	<string name="app_name">Notes</string>
+
+	<!-- Buttons -->
+	<string name="button_save_input">Save</string>
+	<string name="button_add_note">Add Note</string>
+
+	<!-- Input & Text -->
+	<string name="input_name">Name</string>
+	<string name="input_age">Age</string>
 </resources>
