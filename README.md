@@ -1,2 +1,2 @@
-# HomeExercise2
-HomeExercise2 - Notes
+# HomeExercise2 - Notes
+Author: Peter Löcker (PeterBrain)
