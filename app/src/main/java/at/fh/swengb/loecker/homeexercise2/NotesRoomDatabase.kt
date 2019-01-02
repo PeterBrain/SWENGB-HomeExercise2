@@ -12,7 +12,7 @@ abstract class NotesRoomDatabase : RoomDatabase() {
 
 	companion object {
 		fun getDatabase(context: Context): NotesRoomDatabase {
-			return Room.databaseBuilder(context, NotesRoomDatabase::class.java, "notes-db")
+			return Room.databaseBuilder(context, NotesRoomDatabase::class.java, "notes-database")
 				.allowMainThreadQueries()
 				.fallbackToDestructiveMigration()
 				.build()

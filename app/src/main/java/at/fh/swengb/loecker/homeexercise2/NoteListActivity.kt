@@ -25,8 +25,17 @@ class NoteListActivity : AppCompatActivity() {
 
 		user_info.text = "Notes for ${user_name}, ${user_age}"
 
-        db = NotesRoomDatabase.getDatabase(this)
-        noteAdapter.updateList(db.noteDao.findAll())
+		updateRecycler()
+	}
+
+	override fun onResume() {
+		super.onResume()
+		updateRecycler()
+	}
+
+	fun updateRecycler() {
+		db = NotesRoomDatabase.getDatabase(this)
+		noteAdapter.updateList(db.noteDao.findAll())
 
 		recycler_view.adapter = noteAdapter
 		recycler_view.layoutManager = LinearLayoutManager(this)
