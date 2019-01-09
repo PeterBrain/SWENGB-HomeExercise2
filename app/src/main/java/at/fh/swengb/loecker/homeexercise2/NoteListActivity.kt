@@ -20,8 +20,8 @@ class NoteListActivity : AppCompatActivity() {
 
 		val sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
 
-		val user_name = sharedPreferences.getString("UserName", null)
-		val user_age = sharedPreferences.getInt("UserAge", -1)
+		val user_name = sharedPreferences.getString("UserName",null)
+		val user_age = sharedPreferences.getInt("UserAge",-1)
 
 		user_info.text = "Notes for ${user_name}, ${user_age}"
 

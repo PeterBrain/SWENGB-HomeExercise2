@@ -22,7 +22,7 @@ class AddNoteActivity : AppCompatActivity() {
 	fun saveNote(view: View) {
 		val title = input_note_title.text.toString()
 		val content = input_note_content.text.toString()
-		val note = Note(0, title, content)
+		val note = Note(title, content)
 
 		db.noteDao.insert(note)
 		noteAdapter.updateList(db.noteDao.findAll())

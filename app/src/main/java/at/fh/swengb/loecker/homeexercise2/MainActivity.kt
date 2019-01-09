@@ -20,8 +20,15 @@ class MainActivity : AppCompatActivity() {
 	}
 
 	fun save_button(view: View) {
-		sharedPreferences.edit().putString("UserName", input_name.text.toString()).apply()
-		sharedPreferences.edit().putInt("UserAge", input_age.text.toString().toInt()).apply()
+		val username: String = input_name.text.toString()
+		var userage: String = input_age.text.toString()
+
+		if (userage == "") {
+			userage = "-1"
+		}
+
+		sharedPreferences.edit().putString("UserName", username).apply()
+		sharedPreferences.edit().putInt("UserAge", userage.toInt()).apply()
 
 		val intent = Intent(this, NoteListActivity::class.java)
 		startActivity(intent)
