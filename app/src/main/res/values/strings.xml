@@ -3,9 +3,11 @@
 	<string name="app_name">Notes</string>
 
 	<!-- Buttons -->
-	<string name="button_save_input">Save</string>
+	<string name="button_login_input">Login</string>
+	<string name="button_logout">Logout</string>
 	<string name="button_add_note">Add Note</string>
 	<string name="button_save_note">Save Note</string>
+	<string name="button_share_note">Share Note</string>
 
 	<!-- Input & Text -->
 	<string name="input_name">Name</string>

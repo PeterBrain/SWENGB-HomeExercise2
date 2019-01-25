@@ -4,9 +4,9 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 
 @Entity
-class Note (val title: String, val content: String) {
+class Note (val title: String, val content: String, val userId: Long) {
 	@PrimaryKey (autoGenerate = true)
-	var id: Int = 0
+	var id: Long = 0
 
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
