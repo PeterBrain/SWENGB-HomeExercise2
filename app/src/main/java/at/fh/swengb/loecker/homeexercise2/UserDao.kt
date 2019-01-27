@@ -16,8 +16,8 @@ interface UserDao {
     @Query("SELECT * FROM user WHERE name = :name")
     fun findUserWithName(name: String): User // can do this because each user has a unique name
 
-    @Query("SELECT * FROM user WHERE id = :id")
-    fun findUserWithId(id: Long): User
+    /*@Query("SELECT * FROM user WHERE id = :id")
+    fun findUserWithId(id: Long): User*/
 
     /*@Query("SELECT * FROM user ORDER BY id")
     fun findAllUser(): List<User>

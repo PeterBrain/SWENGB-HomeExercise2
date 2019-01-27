@@ -13,9 +13,9 @@ import kotlinx.android.synthetic.main.activity_note_list.*
 
 class NoteListActivity : AppCompatActivity() {
 
+	private lateinit var sharedPreferences: SharedPreferences
 	private lateinit var noteAdapter: NoteAdapter
 	private lateinit var db: NotesRoomDatabase
-	private lateinit var sharedPreferences: SharedPreferences
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -24,14 +24,9 @@ class NoteListActivity : AppCompatActivity() {
 		noteAdapter = adapters.NoteAdapter {
 			Toast.makeText(this, "Note long clicked: ${it.title}", Toast.LENGTH_SHORT).show()
 
-			val intent = Intent(Intent.ACTION_SEND)
-			intent.putExtra(Intent.EXTRA_TEXT, it.content)
-			intent.type = "text/plain"
-			val chooserIntent = Intent.createChooser(intent, "Share my Note")
-			startActivity(chooserIntent)
 		}
 
-		val sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
+		sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
 		val userName = sharedPreferences.getString("UserName",null)
 		val userAge = sharedPreferences.getInt("UserAge",-1)
 		val userId = sharedPreferences.getLong("UserId", -1)
@@ -47,7 +42,7 @@ class NoteListActivity : AppCompatActivity() {
 	override fun onResume() {
 		super.onResume()
 
-		val sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
+		sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
 		val userId = sharedPreferences.getLong("UserId", -1)
 
 		if (userId == -1L) {
@@ -77,7 +72,6 @@ class NoteListActivity : AppCompatActivity() {
 	}
 
 	fun destroySession() {
-		val sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
 		sharedPreferences.edit().remove("UserName").commit()
 		sharedPreferences.edit().remove("UserAge").commit()
 		sharedPreferences.edit().remove("UserId").commit()

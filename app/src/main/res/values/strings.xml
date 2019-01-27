@@ -14,4 +14,13 @@
 	<string name="input_age">Age</string>
 	<string name="input_note_title">Title</string>
 	<string name="input_note_content">Content</string>
+
+	<!-- Chooser -->
+	<string name="add_note_share_title">Choose an app to share your note.</string>
+
+	<!-- Toasts -->
+	<string name="main_name_missing">Please fill in your name!</string>
+	<string name="main_age_missing">Please fill in your age!</string>
+	<string name="add_note_title_missing">Please fill in a title!</string>
+	<string name="add_note_content_missing">Please fill in some content!</string>
 </resources>
