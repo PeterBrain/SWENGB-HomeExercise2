@@ -8,13 +8,13 @@ import at.fh.swengb.loecker.homeexercise2.Note
 import at.fh.swengb.loecker.homeexercise2.R
 import kotlinx.android.synthetic.main.item_note.view.*
 
-class NoteAdapter(): RecyclerView.Adapter<NoteViewHolder>() {
+class NoteAdapter(val onLongClick: (note: Note) -> Unit): RecyclerView.Adapter<NoteViewHolder>() {
 	var noteList = listOf<Note>()
 
 	override fun onCreateViewHolder(parent: ViewGroup, position: Int) : NoteViewHolder {
 		val inflater = LayoutInflater.from(parent.context)
 		val noteItemView = inflater.inflate(R.layout.item_note, parent, false)
-		return NoteViewHolder(noteItemView)
+		return NoteViewHolder(noteItemView, onLongClick)
 	}
 
 	override fun getItemCount(): Int {
@@ -33,9 +33,13 @@ class NoteAdapter(): RecyclerView.Adapter<NoteViewHolder>() {
 
 }
 
-class NoteViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+class NoteViewHolder(itemView: View, val onLongClick: (note: Note) -> Unit): RecyclerView.ViewHolder(itemView) {
 	fun bindItem(note: Note) {
 		itemView.note_title.text = note.title
 		itemView.note_content.text = note.content
+		itemView.setOnLongClickListener {
+			onLongClick(note)
+			true
+		}
 	}
 }

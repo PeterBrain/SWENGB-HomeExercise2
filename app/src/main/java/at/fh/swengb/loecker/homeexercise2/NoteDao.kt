@@ -1,24 +1,27 @@
 package at.fh.swengb.loecker.homeexercise2
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Delete
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
 
 @Dao
 interface NoteDao {
 	@Insert
-	fun insert(note: Note)
+	fun insertNote(note: Note)
 
-	@Query("SELECT * FROM Note ORDER BY id")
-	fun findAll(): List<Note>
+	@Update
+	fun updateNote(note: Note)
 
-	@Query("SELECT * FROM Note WHERE title = :uTitle")
-	fun findNotesWithTitle(uTitle: String): List<Note>
+	@Delete
+	fun deleteNote(note: Note)
 
-	/*@Delete
-	fun clearDatabase(note: Note)
+	@Query("SELECT * FROM notes ORDER BY id")
+	fun findAllNotes(): List<Note>
 
-	@Query("DELETE FROM Note")
+	@Query("SELECT * FROM notes WHERE userId = :userId")
+	fun findNotesFromUser(userId: Long): List<Note>
+
+	/*@Query("SELECT * FROM notes WHERE title = :title")
+	fun findNotesWithTitle(title: String): List<Note>
+
+	@Query("DELETE FROM notes")
 	fun deleteAll()*/
 }
