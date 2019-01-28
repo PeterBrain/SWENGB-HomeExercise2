@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
 		if (userName.isEmpty()) {
 			Toast.makeText(this, R.string.main_name_missing, Toast.LENGTH_SHORT).show()
-		} else if(userAge.isEmpty()) {
+		} else if (userAge.isEmpty()) {
 			Toast.makeText(this, R.string.main_age_missing, Toast.LENGTH_SHORT).show()
 		} else {
 			sharedPreferences.edit().putString("UserName", userName).apply()
@@ -43,8 +43,8 @@ class MainActivity : AppCompatActivity() {
 
 			sharedPreferences.edit().putLong("UserId", user.id).apply()
 
-			input_name.text.clear()
-			input_age.text.clear()
+			//input_name.text.clear()
+			//input_age.text.clear()
 
 			toNoteListActivity()
 		}

@@ -1,6 +1,9 @@
 <resources>
 	<!-- Main -->
 	<string name="app_name">Notes</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
+	<string name="notes_list_for">Notes for %1$s, %2$d</string>
 
 	<!-- Buttons -->
 	<string name="button_login_input">Login</string>
@@ -9,7 +12,7 @@
 	<string name="button_save_note">Save Note</string>
 	<string name="button_share_note">Share Note</string>
 
-	<!-- Input & Text -->
+	<!-- Input -->
 	<string name="input_name">Name</string>
 	<string name="input_age">Age</string>
 	<string name="input_note_title">Title</string>
@@ -17,6 +20,10 @@
 
 	<!-- Chooser -->
 	<string name="add_note_share_title">Choose an app to share your note.</string>
+
+	<!-- Dialog -->
+	<string name="note_list_delete_note_title">Delete Note</string>
+	<string name="note_list_delete_note">Are you sure you want to delete the Note %1$s?</string>
 
 	<!-- Toasts -->
 	<string name="main_name_missing">Please fill in your name!</string>
