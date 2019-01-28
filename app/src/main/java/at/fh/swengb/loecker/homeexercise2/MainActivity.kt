@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 			db = NotesRoomDatabase.getDatabase(this)
 			var user = db.userDao.findUserWithName(userName)
 
-			if (user.name.isEmpty()) {
+			if (user == null) {
 				db.userDao.insertUser(User(userName, userAge.toInt()))
 				user = db.userDao.findUserWithName(userName)
 			}
