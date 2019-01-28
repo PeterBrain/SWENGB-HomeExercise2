@@ -1,6 +1,5 @@
 package at.fh.swengb.loecker.homeexercise2
 
-import adapters.NoteAdapter
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -10,35 +9,60 @@ import kotlinx.android.synthetic.main.activity_add_note.*
 
 class AddNoteActivity : AppCompatActivity() {
 
-	private lateinit var noteAdapter: NoteAdapter
 	private lateinit var db: NotesRoomDatabase
 	private var userId: Long = -1
+	private var noteId: Long = -1
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_add_note)
 
-		noteAdapter = adapters.NoteAdapter{}
 		userId = intent.getLongExtra(User.EXTRA_USER_ID, -1)
+		noteId = intent.getLongExtra(Note.EXTRA_NOTE_ID, -1)
+
+		if (noteId != -1L) {
+			prefill()
+		} else {
+			// nothing
+		}
 	}
 
 	override fun onResume() {
 		super.onResume()
 
-		if (userId == -1L) {
+		if (userId == -1L && noteId == -1L) {
 			this.finish()
+		} else if (userId != -1L && noteId != -1L) {
+			prefill()
+		} else {
+			// nothing - just the super.onResume()
 		}
+	}
+
+	fun prefill() {
+		db = NotesRoomDatabase.getDatabase(this)
+		val note = db.noteDao.findNoteWithId(noteId)
+		input_note_title.setText(note.title)
+		input_note_content.setText(note.content)
 	}
 
 	fun saveNote(view: View) {
 		val title = input_note_title.text.toString()
 		val content = input_note_content.text.toString()
-		val note = Note(title, content, userId)
 
 		if (!title.isEmpty() && !content.isEmpty()) {
 			db = NotesRoomDatabase.getDatabase(this)
-			db.noteDao.insertNote(note)
-			noteAdapter.updateList(db.noteDao.findNotesFromUser(userId))
+
+			if (noteId != -1L) {
+				val note = db.noteDao.findNoteWithId(noteId)
+				note.title = title
+				note.content = content
+
+				db.noteDao.updateNote(note)
+			} else {
+				val note = Note(title, content, userId)
+				db.noteDao.insertNote(note)
+			}
 
 			this.finish()
 		} else {

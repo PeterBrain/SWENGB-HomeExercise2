@@ -19,6 +19,9 @@ interface NoteDao {
 	@Query("SELECT * FROM notes WHERE userId = :userId")
 	fun findNotesFromUser(userId: Long): List<Note>
 
+	@Query("SELECT * FROM notes WHERE id = :id")
+	fun findNoteWithId(id: Long): Note
+
 	/*@Query("SELECT * FROM notes WHERE title = :title")
 	fun findNotesWithTitle(title: String): List<Note>
 

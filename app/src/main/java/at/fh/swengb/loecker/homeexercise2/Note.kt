@@ -14,7 +14,11 @@ import android.arch.persistence.room.PrimaryKey
 		onDelete = ForeignKey.CASCADE
 	)]
 )
-class Note (val title: String, val content: String, @ColumnInfo(name = "userId", index = true) val userId: Long) {
+class Note (var title: String, var content: String, @ColumnInfo(name = "userId", index = true) val userId: Long) {
 	@PrimaryKey (autoGenerate = true)
 	var id: Long = 0
+
+	companion object {
+		val EXTRA_NOTE_ID = "NOTE_ID_EXTRA"
+	}
 }

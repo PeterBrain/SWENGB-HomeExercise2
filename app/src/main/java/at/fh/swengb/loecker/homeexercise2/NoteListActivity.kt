@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_note_list.*
 
 class NoteListActivity : AppCompatActivity() {
@@ -21,10 +20,17 @@ class NoteListActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_note_list)
 
-		noteAdapter = adapters.NoteAdapter {
-			Toast.makeText(this, "Note long clicked: ${it.title}", Toast.LENGTH_SHORT).show()
-
-		}
+		noteAdapter = adapters.NoteAdapter(
+			{
+				// clickListener
+				val intent = Intent(this, AddNoteActivity::class.java)
+				intent.putExtra(Note.EXTRA_NOTE_ID, it.id)
+				startActivity(intent)
+			}, {
+				// longClickListener
+				//Toast.makeText(this, "Note long clicked: ${it.id}", Toast.LENGTH_SHORT).show()
+			}
+		)
 
 		sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
 		val userName = sharedPreferences.getString("UserName",null)
@@ -33,10 +39,10 @@ class NoteListActivity : AppCompatActivity() {
 
 		if (userId == -1L) {
 			destroySession()
+		} else {
+			user_info.text = "Notes for ${userName}, ${userAge}"
+			updateRecycler(userId)
 		}
-
-		user_info.text = "Notes for ${userName}, ${userAge}"
-		updateRecycler(userId)
 	}
 
 	override fun onResume() {
@@ -47,9 +53,9 @@ class NoteListActivity : AppCompatActivity() {
 
 		if (userId == -1L) {
 			destroySession()
+		} else {
+			updateRecycler(userId)
 		}
-
-		updateRecycler(userId)
 	}
 
 	fun updateRecycler(userId: Long) {
@@ -58,6 +64,15 @@ class NoteListActivity : AppCompatActivity() {
 
 		recycler_view.adapter = noteAdapter
 		recycler_view.layoutManager = LinearLayoutManager(this)
+	}
+
+	fun destroySession() {
+		sharedPreferences.edit().remove("UserName").commit()
+		sharedPreferences.edit().remove("UserAge").commit()
+		sharedPreferences.edit().remove("UserId").commit()
+
+		val intent = Intent(this, MainActivity::class.java)
+		startActivity(intent)
 	}
 
 	fun addNote(view: View) {
@@ -69,14 +84,5 @@ class NoteListActivity : AppCompatActivity() {
 
 	fun logout(view: View) {
 		destroySession()
-	}
-
-	fun destroySession() {
-		sharedPreferences.edit().remove("UserName").commit()
-		sharedPreferences.edit().remove("UserAge").commit()
-		sharedPreferences.edit().remove("UserId").commit()
-
-		val intent = Intent(this, MainActivity::class.java)
-		startActivity(intent)
 	}
 }
